@@ -10,34 +10,83 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      recommendations: []
+      recommendations: [],
+      showResults: false
     };
   }
 
-  componentDidMount() {
+  handleAnalyze = () => {
     let object = TwoPair.count(shows);
     let favs = TwoPair.favedMovies(object);
     let pairs = TwoPair.pairings(favs);
     let poss = TwoPair.pairingsVs(shows, pairs);
     let sorted = TwoPair.sortResults(poss);
-    console.log("sorted", sorted);
-    this.setState({ recommendations: sorted });
-  }
+    let backwards = [];
+    sorted = sorted.map(word => word.split(",").join(" "));
+    sorted.forEach(pair => backwards.unshift(pair));
+    this.setState({
+      recommendations: backwards,
+      showResults: !this.state.showResults
+    });
+  };
+
   render() {
     const { classes } = this.props;
     return (
       <Grid item md={12} className={classes.main}>
         <Grid item md={8} className={classes.content}>
-          <div>
-            <Button variant="outlined">UpLoad Custom Data</Button>
-            <Button variant="outlined">Upload Sample Data</Button>
-            <Button variant="outlined">Analyze!</Button>
-            <Button variant="outlined">Recommendation!</Button>
-            <Button variant="outlined">Reset</Button>
+          <div style={{}}>
+            <Button
+              variant="outlined"
+              style={{
+                padding: "0.8rem",
+                background: "lightgrey",
+                fontWeight: "bold"
+              }}
+            >
+              UpLoad Custom Data
+            </Button>
+            <Button
+              variant="outlined"
+              style={{
+                padding: "0.8rem",
+                background: "lightgrey",
+                fontWeight: "bold"
+              }}
+              onClick={() => this.props.handleContent()}
+            >
+              Upload Sample Data
+            </Button>
+            <Button
+              variant="outlined"
+              style={{
+                padding: "0.8rem",
+                background: "lightgrey",
+                fontWeight: "bold"
+              }}
+              onClick={() => this.handleAnalyze()}
+            >
+              Analyze!
+            </Button>
+            <Button
+              variant="outlined"
+              style={{
+                padding: "0.8rem",
+                background: "lightgrey",
+                fontWeight: "bold"
+              }}
+            >
+              Reset
+            </Button>
           </div>
         </Grid>
 
-        <Grid item md={3} className={classes.contentlist}>
+        <Grid
+          item
+          md={8}
+          className={classes.contentlist}
+          style={{ display: this.state.showResults ? "" : "none" }}
+        >
           <List
             items={this.state.recommendations}
             title={"Recommendation Results"}

@@ -4,11 +4,16 @@ import Main from "../components/Main";
 import Content from "../components/Content";
 
 class Dashboard extends Component {
+  state = {
+    showContent: false
+  };
+
+  handleContent = () => this.setState({ showContent: !this.state.showContent });
   render() {
     return (
-      <Grid container>
-        <Main />
-        <Content />
+      <Grid container spacing={4}>
+        <Main handleContent={this.handleContent} />
+        {this.state.showContent ? <Content /> : null}
       </Grid>
     );
   }

@@ -13,8 +13,7 @@ class Content extends React.Component {
       allmovies: [],
       morethanfive: [],
       allpairs: [],
-      possViewers: [],
-      items: ["item1", "item2", "item3", "item4"]
+      possViewers: []
     };
   }
 
@@ -22,16 +21,11 @@ class Content extends React.Component {
     let object = TwoPair.count(shows);
     let favs = TwoPair.favedMovies(object);
     let pairs = TwoPair.pairings(favs);
-    let poss = TwoPair.pairingsVs(shows, pairs);
-    console.log("object", object);
-    console.log("favs", favs);
-    console.log("pairs", pairs);
-    console.log("poss", poss);
+    pairs = pairs.map(word => word.join(" "));
     this.setState({
       allmovies: object,
       morethanfive: favs,
-      allpairs: pairs,
-      possViewers: poss
+      allpairs: pairs
     });
   }
 
@@ -42,14 +36,10 @@ class Content extends React.Component {
         {[
           { title: "All Movies", data: this.state.allmovies },
           {
-            title: "Movies Viewed Shows >= 5 Customers",
+            title: "Shows Viewed by >= 5 Customers",
             data: this.state.morethanfive
           },
-          { title: "All Possible Pairs", data: this.state.allpairs },
-          {
-            title: "Possible Pairs by Viewers >= 4",
-            data: this.state.possViewers
-          }
+          { title: "All Possible Pairs", data: this.state.allpairs }
         ].map((num, idx) => (
           <Grid item md={3} className={classes.bottomlist} key={idx}>
             <List title={num.title} items={num.data} />

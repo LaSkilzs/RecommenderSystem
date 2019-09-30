@@ -4,15 +4,21 @@ const styles = {
   grid: {},
   list: {},
   main: {
-    marginTop: "2rem",
+    marginTop: "5rem",
     display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
     justifyContent: "center",
-    height: "60vh"
+    height: "40vh"
   },
-  content: { border: "2rem solid blue" },
-  contentlist: { border: "2rem solid grey" },
-  bottom: { display: "flex", justifyContent: "center" },
-  bottomlist: { border: "1rem solid pink" }
+  content: {},
+  contentlist: {
+    border: "0.5rem solid lightgrey",
+    borderRadius: 10,
+    height: "40vh"
+  },
+  bottom: { display: "flex", justifyContent: "center", marginBottom: "10rem" },
+  bottomlist: { border: "0.5rem solid lightgrey" }
 };
 
 export default styles;

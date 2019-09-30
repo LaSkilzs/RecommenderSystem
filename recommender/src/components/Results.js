@@ -1,5 +1,5 @@
 import React from "react";
-import { List, ListItem, ListSubheader } from "@material-ui/core";
+import { List, ListItem, ListSubheader, Dialog } from "@material-ui/core";
 const Results = props => {
   console.log("results", props);
   let list;
@@ -14,12 +14,22 @@ const Results = props => {
   }
 
   return (
-    <List>
-      <ListSubheader>{props.title}</ListSubheader>
-      {list.map(item => {
-        return <ListItem key={item}>{item}</ListItem>;
-      })}
-    </List>
+    <React.Fragment>
+      <ListSubheader
+        style={{
+          fontWeight: "bold",
+          fontSize: "1.2rem",
+          background: "lightgrey"
+        }}
+      >
+        {props.title}
+      </ListSubheader>
+      <List style={{ maxHeight: "10rem", overflow: "auto" }}>
+        {list.map((item, idx) => {
+          return <ListItem key={idx}>{idx + 1 + ". " + item}</ListItem>;
+        })}
+      </List>
+    </React.Fragment>
   );
 };
 
